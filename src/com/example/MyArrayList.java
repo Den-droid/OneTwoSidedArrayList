@@ -54,10 +54,6 @@ public class MyArrayList implements IListsFunctionality{
             return;
         }
 
-        if(index == 1){
-            this.addFirst(value);
-            return;
-        }
         if (index == this.size + 1) {
             this.addLast(value);
             return;
