@@ -1,6 +1,5 @@
 package com.example;
-
-public class MyArrayList{
+public class MyArrayList implements IListsFunctionality{
     private int capacity;
     private final float loadFactor = 0.75F;
     private int[] array;
@@ -44,17 +43,23 @@ public class MyArrayList{
         this.setCapacity(newCapacity);
     }
 
-    public void addTop(int value) {
+    @Override
+    public void addFirst(int value) {
         this.insert(value, 1);
     }
 
+    @Override
     public void insert(int value, int index) {
         if (index < 1 || index > this.size + 1) {
             return;
         }
 
+        if(index == 1){
+            this.addFirst(value);
+            return;
+        }
         if (index == this.size + 1) {
-            this.addEnd(value);
+            this.addLast(value);
             return;
         }
         int newIndex = index - 1;
@@ -67,16 +72,19 @@ public class MyArrayList{
         this.checkSpace();
     }
 
-    public void addEnd(int value) {
+    @Override
+    public void addLast(int value) {
         this.array[size] = value;
         this.size++;
         this.checkSpace();
     }
 
+    @Override
     public int deleteFirst() {
         return this.deleteElement(1);
     }
 
+    @Override
     public int deleteElement(int index) {
         if (index < 1 || index > this.size) {
             return -1;
@@ -95,6 +103,7 @@ public class MyArrayList{
         return value;
     }
 
+    @Override
     public int deleteLast() {
         int value = this.array[this.size - 1];
         this.array[this.size - 1] = 0;
@@ -102,6 +111,17 @@ public class MyArrayList{
         return value;
     }
 
+    @Override
+    public void replaceFirst(int newValue){
+        this.replace(newValue, 1);
+    }
+
+    @Override
+    public void replaceLast(int newValue){
+        this.replace(newValue, this.size);
+    }
+
+    @Override
     public void replace(int newValue, int index) {
         if (index > this.size || index < 1) {
             return;
@@ -110,6 +130,7 @@ public class MyArrayList{
         this.array[index] = newValue;
     }
 
+    @Override
     public int sum() {
         int sum = 0;
         for (int i = 0; i < this.size; i++) {
@@ -118,6 +139,7 @@ public class MyArrayList{
         return sum;
     }
 
+    @Override
     public int indexAt(int value) {
         int index = 0;
         for (int i = 0; i < this.size; i++) {
@@ -129,6 +151,7 @@ public class MyArrayList{
         return index + 1;
     }
 
+    @Override
     public void show() {
         for (int i = 0; i < this.size; i++) {
             System.out.print(this.array[i] + " ");

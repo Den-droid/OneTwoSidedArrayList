@@ -1,6 +1,6 @@
 package com.example;
 
-public class OneSidedList {
+public class OneSidedList implements IListsFunctionality{
     private class Node {
         private int data;
         private Node next;
@@ -54,7 +54,8 @@ public class OneSidedList {
     private void setLength(int length) {
         this.length = length;
     }
-
+    
+    @Override
     public void addFirst(int data) {
         Node node = new Node();
         node.setData(data);
@@ -68,6 +69,7 @@ public class OneSidedList {
         this.setLength(this.getLength() + 1);
     }
 
+    @Override
     public void addLast(int data) {
         Node node = new Node();
         node.setData(data);
@@ -84,6 +86,7 @@ public class OneSidedList {
         this.setLength(this.getLength() + 1);
     }
 
+    @Override
     public void insert(int data, int index) {
         if (index < 1 || index > this.getLength() + 1) {
             return;
@@ -113,6 +116,7 @@ public class OneSidedList {
         this.setLength(this.getLength() + 1);
     }
 
+    @Override
     public int deleteElement(int index) {
         if (index < 1 || index > this.getLength()) {
             return -1;
@@ -135,15 +139,17 @@ public class OneSidedList {
         this.setLength(this.getLength() - 1);
         return deletedNode.getData();
     }
-
+    @Override
     public int deleteFirst(){
         return deleteElement(1);
     }
 
+    @Override
     public int deleteLast(){
         return deleteElement(this.getLength());
     }
 
+    @Override
     public void replace(int newValue, int index) {
         Node replaceNode = this.getHead();
         for (int i = 1; i < this.getLength() + 1; i++) {
@@ -155,6 +161,17 @@ public class OneSidedList {
         }
     }
 
+    @Override
+    public void replaceFirst(int newValue){
+        this.replace(newValue, 1);
+    }
+
+    @Override
+    public void replaceLast(int newValue){
+        this.replace(newValue, this.getLength());
+    }
+
+    @Override
     public int indexAt(int value) {
         Node valueNode = this.getHead();
         int index = 0;
@@ -168,6 +185,7 @@ public class OneSidedList {
         return index;
     }
 
+    @Override
     public int sum() {
         int sum = 0;
         Node node = this.getHead();
@@ -178,6 +196,7 @@ public class OneSidedList {
         return sum;
     }
 
+    @Override
     public void show() {
         Node node = this.getHead();
         for (int i = 1; i < this.getLength() + 1; i++) {

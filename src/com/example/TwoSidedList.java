@@ -1,6 +1,6 @@
 package com.example;
 
-public class TwoSidedList {
+public class TwoSidedList implements IListsFunctionality{
     public class Node {
         private int data;
         private Node next;
@@ -64,6 +64,7 @@ public class TwoSidedList {
         this.length = length;
     }
 
+    @Override
     public void addFirst(int data) {
         Node node = new Node();
         node.setData(data);
@@ -81,6 +82,7 @@ public class TwoSidedList {
         this.setLength(this.getLength() + 1);
     }
 
+    @Override
     public void addLast(int data) {
         Node node = new Node();
         node.setData(data);
@@ -98,6 +100,7 @@ public class TwoSidedList {
         this.setLength(this.getLength() + 1);
     }
 
+    @Override
     public void insert(int data, int index) {
         if (index < 1 || index > this.getLength() + 1) {
             return;
@@ -142,6 +145,7 @@ public class TwoSidedList {
         this.setLength(this.getLength() + 1);
     }
 
+    @Override
     public int deleteElement(int index) {
         if (index < 1 || index > this.getLength()) {
             return -1;
@@ -186,14 +190,27 @@ public class TwoSidedList {
         return deletedNode.getData();
     }
 
+    @Override
     public int deleteFirst(){
         return deleteElement(1);
     }
 
+    @Override
     public int deleteLast(){
         return deleteElement(this.getLength());
     }
 
+    @Override
+    public void replaceFirst(int newValue) {
+        this.replace(newValue, 1);
+    }
+
+    @Override
+    public void replaceLast(int newValue) {
+        this.replace(newValue, this.getLength());
+    }
+
+    @Override
     public void replace(int newValue, int index) {
         Node replaceNode;
         int middle = this.getLength() / 2;
@@ -219,6 +236,7 @@ public class TwoSidedList {
         }
     }
 
+    @Override
     public int indexAt(int value) {
         Node valueNode = this.getHead();
         int index = 0;
@@ -232,6 +250,7 @@ public class TwoSidedList {
         return index;
     }
 
+    @Override
     public int sum() {
         int sum = 0;
         Node node = this.getHead();
@@ -242,6 +261,7 @@ public class TwoSidedList {
         return sum;
     }
 
+    @Override
     public void show() {
         Node node = this.getHead();
         for (int i = 1; i < this.getLength() + 1; i++) {
