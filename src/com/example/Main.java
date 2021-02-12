@@ -9,7 +9,7 @@ public class Main {
     }
 
     public static void testOneSide(){
-        TwoSidedList list = new TwoSidedList();
+        OneSidedList list = new OneSidedList();
 
         for(int i = 1;i<1000;i++){
             list.addFirst(i*4);
