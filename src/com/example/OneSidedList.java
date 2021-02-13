@@ -54,7 +54,7 @@ public class OneSidedList implements IListsFunctionality{
     private void setLength(int length) {
         this.length = length;
     }
-    
+
     @Override
     public void addFirst(int data) {
         Node node = new Node();
@@ -121,6 +121,11 @@ public class OneSidedList implements IListsFunctionality{
         if (index < 1 || index > this.getLength()) {
             return -1;
         }
+
+        if(index == 1){
+            return this.deleteFirst();
+        }
+
         Node prevDeletedNode = this.getHead();
         int counter = 1;
         while (counter < index - 1) {
@@ -129,11 +134,11 @@ public class OneSidedList implements IListsFunctionality{
         }
         Node deletedNode;
 
-        if (prevDeletedNode.equals(this.getHead()) && index == 1) {
-            deletedNode = this.getHead();
-            this.setHead(prevDeletedNode.getNext());
-        } else {
-            deletedNode = prevDeletedNode.getNext();
+        deletedNode = prevDeletedNode.getNext();
+        if(index == this.getLength()){
+            this.setTail(prevDeletedNode);
+        }
+        else {
             prevDeletedNode.setNext(deletedNode.getNext());
         }
         this.setLength(this.getLength() - 1);
@@ -141,7 +146,17 @@ public class OneSidedList implements IListsFunctionality{
     }
     @Override
     public int deleteFirst(){
-        return deleteElement(1);
+        if(this.getLength() != 0){
+            Node node = this.getHead();
+            int value = node.getData();
+            if(this.getLength() == 1){
+                this.setTail(null);
+            }
+            this.setHead(node.getNext());
+            this.setLength(this.getLength() - 1);
+            return value;
+        }
+        else return -1;
     }
 
     @Override
@@ -163,12 +178,12 @@ public class OneSidedList implements IListsFunctionality{
 
     @Override
     public void replaceFirst(int newValue){
-        this.replace(newValue, 1);
+        this.getHead().setData(newValue);
     }
 
     @Override
     public void replaceLast(int newValue){
-        this.replace(newValue, this.getLength());
+        this.getTail().setData(newValue);
     }
 
     @Override

@@ -151,6 +151,13 @@ public class TwoSidedList implements IListsFunctionality{
             return -1;
         }
 
+        if(index == 1){
+            return this.deleteFirst();
+        }
+        else if(index == this.getLength()){
+            return this.deleteLast();
+        }
+
         int middle = this.getLength() / 2;
         int counter;
         Node deletedNode;
@@ -172,18 +179,11 @@ public class TwoSidedList implements IListsFunctionality{
         Node previousNode = deletedNode.getPrevious();
         Node nextNode = deletedNode.getNext();
 
-        if(previousNode != null && index != 1){
+        if(previousNode != null){
             previousNode.setNext(nextNode);
         }
-        if(nextNode != null && index != length){
+        if(nextNode != null){
             nextNode.setPrevious(previousNode);
-        }
-
-        if(index == 1){
-            this.setHead(nextNode);
-        }
-        else if(index == this.getLength()){
-            this.setTail(previousNode);
         }
 
         this.setLength(this.getLength() - 1);
@@ -192,22 +192,42 @@ public class TwoSidedList implements IListsFunctionality{
 
     @Override
     public int deleteFirst(){
-        return deleteElement(1);
+        if(this.getLength() != 0){
+            Node node = this.getHead();
+            int value = node.getData();
+            if(this.getLength() == 1){
+                this.setTail(null);
+            }
+            this.setHead(node.getNext());
+            this.setLength(this.getLength() - 1);
+            return value;
+        }
+        else return -1;
     }
 
     @Override
     public int deleteLast(){
-        return deleteElement(this.getLength());
+        if(this.getLength() != 0){
+            Node node = this.getTail();
+            int value = node.getData();
+            if(this.getLength() == 1){
+                this.setHead(null);
+            }
+            this.setTail(node.getPrevious());
+            this.setLength(this.getLength() - 1);
+            return value;
+        }
+        else return -1;
     }
 
     @Override
     public void replaceFirst(int newValue) {
-        this.replace(newValue, 1);
+        this.getHead().setData(newValue);
     }
 
     @Override
     public void replaceLast(int newValue) {
-        this.replace(newValue, this.getLength());
+        this.getTail().setData(newValue);
     }
 
     @Override
